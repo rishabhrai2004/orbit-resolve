@@ -113,25 +113,35 @@ app.use('/api/v1/admin', adminRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// ──── Graceful Shutdown ────
-const server = app.listen(port, process.env.HOST || '0.0.0.0', async () => {
-  try {
-    await db.query('SELECT NOW()');
-    console.log(`✓ Database connected`);
-    console.log(`✓ Orbit Resolve running on ${process.env.HOST || '0.0.0.0'}:${port}`);
-  } catch (err) {
-    console.error('✗ Database connection failed:', err);
-    process.exit(1);
-  }
-});
-
-process.on('SIGTERM', async () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  server.close(async () => {
-    await db.end();
-    console.log('Server closed');
-    process.exit(0);
+// ──── Graceful Shutdown & Startup ────
+// Only listen if not in a serverless environment (Vercel, AWS Lambda, etc)
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'production') {
+  const server = app.listen(port, process.env.HOST || '0.0.0.0', async () => {
+    try {
+      await db.query('SELECT NOW()');
+      console.log(`✓ Database connected`);
+      console.log(`✓ Orbit Resolve running on ${process.env.HOST || '0.0.0.0'}:${port}`);
+    } catch (err) {
+      console.error('✗ Database connection failed:', err);
+      process.exit(1);
+    }
   });
-});
+
+  process.on('SIGTERM', async () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(async () => {
+      await db.end();
+      console.log('Server closed');
+      process.exit(0);
+    });
+  });
+} else if (process.env.VERCEL) {
+  // For Vercel serverless: test DB connection on startup
+  db.query('SELECT NOW()').then(() => {
+    console.log(`✓ Database connected (serverless)`);
+  }).catch((err) => {
+    console.error('✗ Database connection failed (serverless):', err);
+  });
+}
 
 export default app;
