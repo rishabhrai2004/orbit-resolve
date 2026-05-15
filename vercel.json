@@ -1,40 +1,25 @@
 {
   "version": 2,
-  "public": false,
-  "buildCommand": "npm install",
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "app.js",
-      "use": "@vercel/static"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "src/**",
+          "scripts/**",
+          "*.html",
+          "*.css",
+          "*.js",
+          "package.json",
+          "package-lock.json"
+        ]
+      }
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/health(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/(.*\\.(html|css|js|json|svg|png|jpg|jpeg|gif|ico|ttf|woff|woff2))?$",
-      "dest": "/$1"
-    },
-    {
-      "src": "^/(.*)$",
+      "src": "/(.*)",
       "dest": "server.js"
     }
   ],
