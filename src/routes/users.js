@@ -1,5 +1,6 @@
 /* User Management Routes */
 import express from 'express';
+import crypto from 'crypto';
 import { authenticate, authorize } from '../middleware/auth.js';
 import * as userModel from '../models/user.js';
 import { ApiError } from '../middleware/errorHandler.js';
@@ -50,7 +51,7 @@ router.post('/invite', authenticate, authorize('admin', 'exec'), async (req, res
 
     // In production, send email invitation
     // For now, create user with temporary password
-    const tempPassword = Math.random().toString(36).slice(-12);
+    const tempPassword = crypto.randomBytes(18).toString('base64url');
     const user = await userModel.createUser(email, tempPassword, name, role, req.user.org_id);
 
     await logAction(req.user.org_id, req.user.id, 'USER_INVITED', 'user', user.id, { email, role });
@@ -73,7 +74,11 @@ router.patch('/:userId/role', authenticate, authorize('admin', 'exec'), async (r
       throw new ApiError('Invalid role', 400);
     }
 
-    const user = await userModel.updateUser(req.params.userId, { role });
+    const user = await userModel.updateOrgUser(req.params.userId, req.user.org_id, { role });
+
+    if (!user) {
+      throw new ApiError('User not found', 404);
+    }
 
     await logAction(req.user.org_id, req.user.id, 'ROLE_UPDATED', 'user', req.params.userId, { new_role: role });
 

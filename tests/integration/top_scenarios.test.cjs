@@ -15,12 +15,17 @@ describe('Top priority integration tests (CJS)', () => {
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('confidence');
     expect(res.body).toHaveProperty('ai_recommendation');
+    expect(res.body).toHaveProperty('decision');
+    expect(res.body.decision.status).toBe('approved');
+    expect(res.body.provisioning).toBeDefined();
   });
 
   test('2. Low-confidence escalation produces response with confidence field', async () => {
     const res = await agent.post('/api/v1/requests').set('Authorization', `Bearer ${token}`).send({ title: 'Low-confidence escalation', description: 'Access with low score', type: 'Privileged Access', urgency: 'low', target_resource: 'db.read' });
     expect(res.status).toBe(201);
     expect(typeof res.body.confidence).toBe('number');
+    expect(res.body.decision.status).toBe('pending');
+    expect(res.body.decision.blockers.length).toBeGreaterThan(0);
   });
 
   test('3. High-confidence auto-approve scenario (confidence present)', async () => {
@@ -34,6 +39,7 @@ describe('Top priority integration tests (CJS)', () => {
     expect(res.status).toBe(201);
     expect(res.body.urgency).toBe('high');
     expect(typeof res.body.confidence).toBe('number');
+    expect(res.body.decision.policy.code).toBe('PAM-01');
   });
 
   test('8. Multi-tenant isolation: org_id present and request created', async () => {
@@ -64,6 +70,14 @@ describe('Top priority integration tests (CJS)', () => {
     expect(res.status).toBe(201);
     expect(res.body).toHaveProperty('confidence');
     expect(res.body).toHaveProperty('ai_recommendation');
+    expect(res.body.decision.status).toBe('pending');
+    expect(res.body.decision.policy.code).toBe('DATA-07');
   }, 20000);
+
+  test('22. Exceptions route is not shadowed by requestId route', async () => {
+    const res = await agent.get('/api/v1/requests/exceptions/list').set('Authorization', `Bearer ${token}`);
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body.exceptions)).toBe(true);
+  });
 
 });

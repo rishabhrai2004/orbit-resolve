@@ -38,12 +38,12 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
-      scriptSrcAttr: ["'unsafe-inline'"],
+      scriptSrc: ["'self'", 'https://cdn.jsdelivr.net'],
+      scriptSrcAttr: ["'none'"],
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
       imgSrc: ["'self'", 'data:'],
-      connectSrc: ["'self'", 'http://localhost:3000'],
+      connectSrc: ["'self'"],
     }
   }
 }));
@@ -53,6 +53,13 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// ──── Request ID Tracking ────
+app.use((req, res, next) => {
+  req.id = req.get('x-request-id') || uuidv4();
+  res.set('x-request-id', req.id);
+  next();
+});
 
 // ──── Logging ────
 app.use((req, res, next) => {
@@ -72,21 +79,15 @@ app.use((req, res, next) => {
 });
 
 // ──── Body Parsing ────
+app.use('/api/v1/billing/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json({ limit: process.env.MAX_REQUEST_SIZE || '10mb' }));
 app.use(express.urlencoded({ limit: process.env.MAX_REQUEST_SIZE || '10mb', extended: true }));
 
 // ──── Static Files ────
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { index: false }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'login.html'));
-});
-
-// ──── Request ID Tracking ────
-app.use((req, res, next) => {
-  req.id = req.get('x-request-id') || uuidv4();
-  res.set('x-request-id', req.id);
-  next();
 });
 
 // ──── Rate Limiting ────

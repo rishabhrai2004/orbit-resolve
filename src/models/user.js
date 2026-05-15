@@ -37,12 +37,40 @@ export const verifyPassword = async (plain, hashed) => {
 };
 
 export const updateUser = async (id, updates) => {
-  const fields = Object.keys(updates).map((key, i) => `${key}=$${i + 1}`).join(', ');
-  const values = Object.values(updates);
+  const allowed = ['org_id', 'name', 'role', 'password_hash'];
+  const entries = Object.entries(updates).filter(([key, value]) => allowed.includes(key) && value !== undefined);
+
+  if (entries.length === 0) {
+    return getUserById(id);
+  }
+
+  const fields = entries.map(([key], i) => `${key}=$${i + 1}`).join(', ');
+  const values = entries.map(([, value]) => value);
 
   const result = await db.query(
     `UPDATE users SET ${fields}, updated_at=NOW() WHERE id=$${values.length + 1} RETURNING *`,
     [...values, id]
+  );
+  return result.rows[0];
+};
+
+export const updateOrgUser = async (id, org_id, updates) => {
+  const allowed = ['name', 'role'];
+  const entries = Object.entries(updates).filter(([key, value]) => allowed.includes(key) && value !== undefined);
+
+  if (entries.length === 0) {
+    const user = await getUserById(id);
+    return user?.org_id === org_id ? user : null;
+  }
+
+  const fields = entries.map(([key], i) => `${key}=$${i + 1}`).join(', ');
+  const values = entries.map(([, value]) => value);
+
+  const result = await db.query(
+    `UPDATE users SET ${fields}, updated_at=NOW()
+     WHERE id=$${values.length + 1} AND org_id=$${values.length + 2}
+     RETURNING id, email, name, role, org_id, created_at, updated_at`,
+    [...values, id, org_id]
   );
   return result.rows[0];
 };

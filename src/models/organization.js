@@ -35,8 +35,18 @@ export const getOrgStats = async (org_id) => {
        (SELECT COUNT(*) FROM users WHERE org_id = $1) as user_count,
        (SELECT COUNT(*) FROM requests WHERE org_id = $1) as request_count,
        (SELECT COUNT(*) FROM requests WHERE org_id = $1 AND status = 'approved') as approved_count,
+       (SELECT COUNT(*) FROM requests WHERE org_id = $1 AND status = 'pending') as pending_count,
+       (SELECT COUNT(*) FROM requests WHERE org_id = $1 AND status = 'denied') as denied_count,
+       (SELECT COALESCE(ROUND(AVG(confidence)), 0) FROM requests WHERE org_id = $1) as avg_confidence,
        (SELECT COUNT(*) FROM exceptions WHERE org_id = $1 AND status = 'pending') as pending_exceptions`,
     [org_id]
   );
-  return result.rows[0];
+  const row = result.rows[0];
+  const requestCount = Number(row.request_count || 0);
+  const approvedCount = Number(row.approved_count || 0);
+  return {
+    ...row,
+    autonomous_rate: requestCount ? Math.round((approvedCount / requestCount) * 1000) / 10 : 0,
+    manager_hours_eliminated: Math.round(approvedCount * 3.5),
+  };
 };

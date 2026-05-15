@@ -30,27 +30,31 @@
       <nav class="nav">
         <div class="nav-section">
           <div class="nav-label">Execute</div>
-          <a class="nav-link active" data-view="request" href="#" onclick="navigate('request');return false">
+          <a class="nav-link active" data-view="request" href="#">
             <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             Run Operation
           </a>
-          <a class="nav-link" data-view="resolution" href="#" onclick="navigate('resolution');return false">
+          <a class="nav-link" data-view="resolution" href="#">
             <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Last Outcome
           </a>
         </div>
         <div class="nav-section">
           <div class="nav-label">Oversee</div>
-          <a class="nav-link" data-view="exceptions" href="#" onclick="navigate('exceptions');return false">
+          <a class="nav-link" data-view="exceptions" href="#">
             <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M9 6v4M9 12.5h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             Exceptions
             <span class="nav-count" id="reviewBadge">3</span>
           </a>
-          <a class="nav-link" data-view="policies" href="#" onclick="navigate('policies');return false">
+          <a class="nav-link" data-view="policies" href="#">
             <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 6h8M5 9h8M5 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             Policies
           </a>
-          <a class="nav-link" data-view="dashboard" href="#" onclick="navigate('dashboard');return false">
+          <a class="nav-link" data-view="team" href="#">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M6.5 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM11.5 7.5a2 2 0 1 0 0-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M2.5 14.5c.6-2.4 2.1-3.6 4-3.6s3.4 1.2 4 3.6M10.5 11c1.6.1 2.8 1.1 3.2 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Team
+          </a>
+          <a class="nav-link" data-view="dashboard" href="#">
             <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M2 13l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Impact
           </a>
@@ -66,10 +70,10 @@
           </div>
         </div>
         <div class="persona-bar">
-          <button class="p-tab active" data-role="employee" onclick="setRole('employee')">Employee</button>
-          <button class="p-tab" data-role="manager" onclick="setRole('manager')">Manager</button>
-          <button class="p-tab" data-role="admin" onclick="setRole('admin')">Admin</button>
-          <button class="p-tab" data-role="exec" onclick="setRole('exec')">Exec</button>
+          <button class="p-tab active" data-role="employee">Employee</button>
+          <button class="p-tab" data-role="manager">Manager</button>
+          <button class="p-tab" data-role="admin">Admin</button>
+          <button class="p-tab" data-role="exec">Exec</button>
         </div>
         <div class="user-row">
           <div class="avatar" id="avatar">JD</div>
@@ -84,13 +88,5 @@
   </div>
   <div id="toasts"></div>
   <script src="app.js"></script>
-  <script>
-    console.log('Inline test script running');
-    if (typeof window.S === 'undefined') {
-      console.warn('app.js did not execute - S object not found');
-    } else {
-      console.log('✓ app.js executed successfully, S object found');
-    }
-  </script>
 </body>
 </html>

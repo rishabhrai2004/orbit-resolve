@@ -7,7 +7,7 @@ import { ApiError } from '../middleware/errorHandler.js';
 import { logAction } from '../models/auditLog.js';
 
 const router = express.Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
 const PLANS = {
   starter: { price: 99, seats: 5, requests_per_month: 1000 },
@@ -43,6 +43,10 @@ router.post('/checkout', authenticate, authorize('admin', 'exec'), async (req, r
       throw new ApiError('Invalid plan', 400);
     }
 
+    if (!stripe) {
+      throw new ApiError('Stripe is not configured', 503);
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
@@ -67,8 +71,8 @@ router.post('/checkout', authenticate, authorize('admin', 'exec'), async (req, r
         org_id: req.user.org_id,
         plan,
       },
-      success_url: `${process.env.FRONTEND_URL}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.FRONTEND_URL}/billing/cancelled`,
+      success_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/billing/cancelled`,
     });
 
     res.json({ sessionId: session.id });
@@ -78,8 +82,12 @@ router.post('/checkout', authenticate, authorize('admin', 'exec'), async (req, r
 });
 
 // Webhook for subscription updates
-router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res, next) => {
+router.post('/webhook', async (req, res, next) => {
   try {
+    if (!stripe) {
+      throw new ApiError('Stripe is not configured', 503);
+    }
+
     const sig = req.get('stripe-signature');
     const event = stripe.webhooks.constructEvent(
       req.body,

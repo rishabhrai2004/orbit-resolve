@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
-import * as requestModel from '../models/request.js';
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL;
@@ -33,7 +31,11 @@ export async function generateRecommendation(orgId, request) {
   const isApiKey = GEMINI_KEY && GEMINI_KEY.startsWith('AIza');
 
   // Try a small set of candidate model names (configured model first)
-  const candidates = [GEMINI_MODEL, 'chat-bison@001', 'text-bison-001', 'gemini-1.0'].filter(Boolean);
+  const fallbackModels = (process.env.GEMINI_FALLBACK_MODELS || '')
+    .split(',')
+    .map((m) => m.trim())
+    .filter(Boolean);
+  const candidates = [GEMINI_MODEL, ...fallbackModels].filter(Boolean);
   let finalResp = null;
   let usedModel = null;
   let lastError = null;
@@ -53,7 +55,7 @@ export async function generateRecommendation(orgId, request) {
           headers: isApiKey
             ? { 'Content-Type': 'application/json' }
             : { Authorization: `Bearer ${GEMINI_KEY}`, 'Content-Type': 'application/json' },
-          timeout: 15000,
+          timeout: Number(process.env.AI_TIMEOUT_MS || 1500),
         }
       );
 
@@ -68,22 +70,7 @@ export async function generateRecommendation(orgId, request) {
 
   if (finalResp) {
     const text = extractText(finalResp);
-    const result = { text, meta: { model: usedModel, raw: finalResp } };
-
-    try {
-      await requestModel.createException({
-        org_id: orgId,
-        request_id: request.id,
-        reason: 'AI recommendation',
-        policy_conflict: null,
-        recommendation: { text, model: usedModel },
-        user_id: request.user_id,
-      });
-    } catch (err) {
-      console.warn('Failed to persist AI recommendation:', err.message || err);
-    }
-
-    return result;
+    return { text, meta: { model: usedModel } };
   }
 
   // All external attempts failed — produce a deterministic fallback recommendation
@@ -114,20 +101,7 @@ export async function generateRecommendation(orgId, request) {
 
   const fallbackText = `Fallback recommendation (no AI): ${fallbackRecommendation.action} — ${fallbackRecommendation.reasoning} (confidence=${fallbackRecommendation.confidence})`;
 
-  try {
-    await requestModel.createException({
-      org_id: orgId,
-      request_id: request.id,
-      reason: 'AI fallback recommendation',
-      policy_conflict: null,
-      recommendation: { text: fallbackText, model: 'fallback', meta: fallbackRecommendation },
-      user_id: request.user_id,
-    });
-  } catch (err) {
-    console.warn('Failed to persist fallback recommendation:', err.message || err);
-  }
-
-  return { text: fallbackText, meta: { error: errMsg, fallback: true, fallback: fallbackRecommendation } };
+  return { text: fallbackText, meta: { error: errMsg, fallback: fallbackRecommendation } };
 }
 
 export default { generateRecommendation };

@@ -3,6 +3,8 @@ import db from '../src/db.js';
 import * as userModel from '../src/models/user.js';
 import * as orgModel from '../src/models/organization.js';
 import * as policyModel from '../src/models/policy.js';
+import * as requestModel from '../src/models/request.js';
+import { logAction } from '../src/models/auditLog.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -19,13 +21,32 @@ export const seed = async () => {
     const org = await orgModel.createOrganization('Acme Corp', null);
     console.log('✓ Created organization:', org.name);
 
-    // Create demo users
-    const admin = await userModel.createUser('admin@acme.com', 'password123', 'Admin User', 'admin', org.id);
-    const manager1 = await userModel.createUser('maya@acme.com', 'password123', 'Maya Rodriguez', 'manager', org.id);
-    const manager2 = await userModel.createUser('tom@acme.com', 'password123', 'Tom Chen', 'admin', org.id);
-    const employee = await userModel.createUser('jordan@acme.com', 'password123', 'Jordan Davis', 'employee', org.id);
+    const admin = await userModel.createUser('admin@acme.com', 'password123', 'Avery Patel', 'admin', org.id);
 
-    console.log('✓ Created demo users');
+    const managers = [];
+    for (const person of [
+      ['maya@acme.com', 'Maya Rodriguez'],
+      ['victor@acme.com', 'Victor Stone'],
+      ['lena@acme.com', 'Lena Hoffmann'],
+    ]) {
+      managers.push(await userModel.createUser(person[0], 'password123', person[1], 'manager', org.id));
+    }
+
+    const employees = [];
+    for (const person of [
+      ['jordan@acme.com', 'Jordan Davis'],
+      ['priya@acme.com', 'Priya Sharma'],
+      ['sarah@acme.com', 'Sarah Chen'],
+      ['omar@acme.com', 'Omar Patel'],
+      ['nina@acme.com', 'Nina Brooks'],
+      ['leo@acme.com', 'Leo Martinez'],
+      ['emma@acme.com', 'Emma Wilson'],
+      ['david@acme.com', 'David Kim'],
+    ]) {
+      employees.push(await userModel.createUser(person[0], 'password123', person[1], 'employee', org.id));
+    }
+
+    console.log('✓ Created Acme roster: 8 employees, 3 managers, 1 admin');
 
     // Create demo policies
     const policies = [
@@ -64,15 +85,117 @@ export const seed = async () => {
 
     console.log('✓ Created demo policies');
 
-    // Create demo requests
-    await db.query(
-      `INSERT INTO requests (id, org_id, user_id, title, description, type, requestor_role, urgency, status, confidence, created_at)
-       VALUES 
-         (gen_random_uuid(), $1, $2, 'GitHub repo access', 'Grant access to core-api repo for platform migration', 'SaaS Provisioning', 'Software Engineer', 'low', 'pending', 52, NOW()),
-         (gen_random_uuid(), $1, $3, 'Okta MFA reset', 'Reset Okta MFA token - lost authenticator device', 'Account Recovery', 'Senior Engineer', 'medium', 'approved', 75, NOW()),
-         (gen_random_uuid(), $1, $4, 'AWS Production Console Access', 'AWS production database access for incident debugging', 'Privileged Access', 'Senior Engineer', 'high', 'pending', 26, NOW())`,
-      [org.id, employee.id, manager1.id, manager1.id]
-    );
+    const demoRequests = [
+      {
+        user: employees[0],
+        title: 'GitHub repo access',
+        description: 'Grant access to core-api repo for platform migration',
+        type: 'Source Control Access',
+        role: 'employee',
+        urgency: 'low',
+        confidence: 92,
+        status: 'approved',
+      },
+      {
+        user: employees[1],
+        title: 'Figma seat for onboarding',
+        description: 'Provision Figma seat for product discovery sprint',
+        type: 'SaaS Provisioning',
+        role: 'employee',
+        urgency: 'low',
+        confidence: 88,
+        status: 'approved',
+      },
+      {
+        user: employees[2],
+        title: 'AWS Production Console Access',
+        description: 'AWS production database access for incident debugging',
+        type: 'Privileged Access',
+        role: 'employee',
+        urgency: 'high',
+        confidence: 24,
+        status: 'pending',
+        exception: {
+          policy: 'PAM-01 · Privileged Access Management',
+          rule: 'On-call membership and short expiry required',
+          issue: 'Requester is not on the active PagerDuty rotation and no expiry was supplied',
+        },
+      },
+      {
+        user: employees[7],
+        title: 'New Vendor: Anthropic API',
+        description: 'Create production API keys for Anthropic vendor integration',
+        type: 'Vendor Onboarding',
+        role: 'employee',
+        urgency: 'medium',
+        confidence: 42,
+        status: 'pending',
+        exception: {
+          policy: 'VND-02 · Vendor Security Review',
+          rule: 'InfoSec sign-off and DPA required before production keys',
+          issue: 'Security review has not been started for this vendor',
+        },
+      },
+      {
+        user: managers[0],
+        title: 'Okta MFA reset',
+        description: 'Reset Okta MFA token - lost authenticator device',
+        type: 'Account Recovery',
+        role: 'manager',
+        urgency: 'medium',
+        confidence: 96,
+        status: 'approved',
+      },
+      {
+        user: employees[4],
+        title: 'Travel expense reimbursement',
+        description: 'Reimburse $84 customer onsite taxi receipt',
+        type: 'Expense Reimbursement',
+        role: 'employee',
+        urgency: 'low',
+        confidence: 91,
+        status: 'approved',
+      },
+    ];
+
+    for (const [index, item] of demoRequests.entries()) {
+      const result = await db.query(
+        `INSERT INTO requests
+         (id, org_id, user_id, title, description, type, requestor_role, urgency, status, confidence, created_at, updated_at, approved_at)
+         VALUES
+         (gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8::varchar, $9, NOW() - ($10 || ' hours')::interval, NOW(), CASE WHEN $8::text = 'approved' THEN NOW() ELSE NULL END)
+         RETURNING *`,
+        [org.id, item.user.id, item.title, item.description, item.type, item.role, item.urgency, item.status, item.confidence, (index + 1) * 4]
+      );
+
+      const request = result.rows[0];
+      if (item.exception) {
+        await requestModel.createException({
+          org_id: org.id,
+          request_id: request.id,
+          reason: {
+            summary: 'Seeded demo exception',
+            blockers: [{ severity: 'high', code: 'DEMO_REVIEW', message: item.exception.issue }],
+          },
+          policy_conflict: {
+            policy: item.exception.policy,
+            rule: item.exception.rule,
+            actual: item.exception.issue,
+          },
+          recommendation: {
+            action: 'Manager review',
+            reasoning: item.exception.issue,
+            next_steps: ['Validate business justification', 'Constrain scope', 'Record approval rationale'],
+          },
+          user_id: item.user.id,
+        });
+      }
+
+      await logAction(org.id, item.user.id, item.status === 'approved' ? 'REQUEST_AUTO_APPROVED' : 'REQUEST_REVIEW_REQUIRED', 'request', request.id, {
+        seeded: true,
+        confidence: item.confidence,
+      });
+    }
 
     console.log('✓ Created demo requests');
 
