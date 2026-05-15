@@ -3,6 +3,8 @@
    Autonomous Operational Execution
    ═══════════════════════════════════ */
 
+console.log('✓ app.js loaded and executing');
+
 const S = {
   view:'request', role:'employee',
   reqState:'idle', lastReq:null, lastOutcome:null, aiRec:null,
@@ -728,7 +730,7 @@ function renderAuditModal(items) {
         </div>
         <div style="text-align:right">
           <div style="color:#6b7280">${new Date(it.created_at).toLocaleString()}</div>
-          <div style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick='(function(){navigator.clipboard&&navigator.clipboard.writeText(`${(rec||'').replace(/`/g,'')}`);alert("Copied");})()'>Copy</button></div>
+          <div style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick="(function(){var t=(rec||'').replace(/\`/g,'');navigator.clipboard&&navigator.clipboard.writeText(t);alert('Copied');})()">Copy</button></div>
         </div>
       </div>
     `;

@@ -84,5 +84,13 @@
   </div>
   <div id="toasts"></div>
   <script src="app.js"></script>
+  <script>
+    console.log('Inline test script running');
+    if (typeof window.S === 'undefined') {
+      console.warn('app.js did not execute - S object not found');
+    } else {
+      console.log('✓ app.js executed successfully, S object found');
+    }
+  </script>
 </body>
 </html>
