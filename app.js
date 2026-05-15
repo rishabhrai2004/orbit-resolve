@@ -84,7 +84,7 @@ const EXCEPTIONS = [
     why:'Orbit auto-provisions individual tools but the full Engineering bundle (14 tools) triggers the new-hire confirmation gate. This is a standard onboarding friction point, not a risk signal.',
     history: { total:0, approved:0, denied:0, note:'First request — no prior history (new hire)' },
     impact:'If approved, provisions: GitHub, Figma, Linear, Notion, Datadog, Sentry, Slack channels, AWS dev, and 6 others. Standard Engineering baseline.',
-    recommendation:{ action:'Approve', reasoning:'Priya's offer letter confirms Software Engineer role. Bundle matches standard Engineering baseline exactly. 100% of similar new-hire bundles were approved by managers in the last 12 months.' },
+    recommendation:{ action:'Approve', reasoning:"Priya's offer letter confirms Software Engineer role. Bundle matches standard Engineering baseline exactly. 100% of similar new-hire bundles were approved by managers in the last 12 months." },
   }
 ];
 

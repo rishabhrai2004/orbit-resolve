@@ -33,12 +33,14 @@ router.post('/', authenticate, async (req, res, next) => {
       policy_id,
     });
 
-    // Calculate risk score
-    request.confidence = await requestModel.calculateRiskScore(request);
+    // Calculate risk score and persist it
+    const confidence = await requestModel.calculateRiskScore(request);
+    request.confidence = confidence;
+    const updated = await requestModel.setRequestConfidence(request.id, req.user.org_id, confidence);
 
     await logAction(req.user.org_id, req.user.id, 'REQUEST_CREATED', 'request', request.id);
 
-    res.status(201).json(request);
+    res.status(201).json(updated || request);
   } catch (err) {
     next(err);
   }

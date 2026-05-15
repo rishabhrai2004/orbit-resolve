@@ -1,9 +1,15 @@
 /* Database Migration Script */
 import db from '../src/db.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 export const migrate = async () => {
   try {
     console.log('Running database migrations...');
+
+    await db.query(`
+      CREATE EXTENSION IF NOT EXISTS pgcrypto;
+    `);
 
     // Organizations
     await db.query(`
@@ -121,7 +127,9 @@ export const migrate = async () => {
   }
 };
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const isDirectRun = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (isDirectRun) {
   migrate()
     .then(() => {
       console.log('Done');

@@ -70,12 +70,12 @@ export const updateRequestStatus = async (id, org_id, status, approver_id = null
   return result.rows[0];
 };
 
-export const calculateRiskScore = async (request) => {
+export const calculateRiskScore = async (request, dbClient = db) => {
   // Score 0-100 based on: history, policy precedent, compliance flags
   let score = 50; // baseline
 
   // Check history
-  const history = await db.query(
+  const history = await dbClient.query(
     `SELECT COUNT(*) as count FROM requests 
      WHERE user_id = $1 AND status = 'approved'`,
     [request.user_id]
@@ -93,6 +93,14 @@ export const calculateRiskScore = async (request) => {
   if (request.type === 'SaaS Provisioning') score -= 15;
 
   return Math.max(0, Math.min(100, score));
+};
+
+export const setRequestConfidence = async (id, org_id, confidence) => {
+  const result = await db.query(
+    `UPDATE requests SET confidence = $1, updated_at = NOW() WHERE id = $2 AND org_id = $3 RETURNING *`,
+    [confidence, id, org_id]
+  );
+  return result.rows[0];
 };
 
 export const createException = async (data) => {
