@@ -1,0 +1,174 @@
+/* Project Structure Overview */
+orbit-resolve/
+├── 📄 Root Configuration Files
+│   ├── server.js               # Main entry point
+│   ├── package.json            # Dependencies & scripts
+│   ├── .env.example            # Environment template
+│   ├── .env.local              # Local development config
+│   ├── .gitignore              # Git ignore rules
+│   ├── Dockerfile              # Docker containerization
+│   ├── docker-compose.yml      # Local dev with Docker
+│   └── .npmrc                  # NPM configuration
+│
+├── 📚 Documentation
+│   ├── README.md               # Project overview
+│   ├── API_REFERENCE.md        # Complete API docs
+│   ├── DEPLOYMENT.md           # Production guide
+│   ├── ARCHITECTURE.md         # System design
+│   ├── POSTMAN_COLLECTION.json # API testing
+│   └── ARCHITECTURE_OVERVIEW   # This file
+│
+├── 🖥️ Frontend
+│   ├── index.html              # Main app (API-ready)
+│   ├── login.html              # Authentication page
+│   └── styles.css              # Design system & styles
+│
+├── ⚙️ Backend (Node.js/Express)
+│   └── src/
+│       ├── db.js               # PostgreSQL pool & transactions
+│       ├── constants.js        # Enums & constants
+│       │
+│       ├── middleware/         # Express middleware
+│       │   ├── auth.js         # JWT authentication & RBAC
+│       │   └── errorHandler.js # Global error handling
+│       │
+│       ├── models/             # Data access layer
+│       │   ├── user.js         # User CRUD & auth
+│       │   ├── request.js      # Request & exception models
+│       │   ├── policy.js       # Policy management
+│       │   ├── organization.js # Organization & subscription
+│       │   └── auditLog.js     # Audit trail
+│       │
+│       ├── routes/             # API endpoints
+│       │   ├── auth.js         # /api/v1/auth/*
+│       │   ├── requests.js     # /api/v1/requests/*
+│       │   ├── policies.js     # /api/v1/policies/*
+│       │   ├── users.js        # /api/v1/users/*
+│       │   ├── billing.js      # /api/v1/billing/* (Stripe)
+│       │   ├── admin.js        # /api/v1/admin/*
+│       │   └── health.js       # /health
+│       │
+│       ├── services/           # Business logic
+│       │   ├── riskEngine.js   # Risk scoring & auto-approval
+│       │   ├── integrations.js # Third-party APIs (GitHub, AWS, etc)
+│       │   └── notifications.js # Email notifications
+│       │
+│       └── utils/              # Utilities
+│           ├── validation.js   # Input validation schemas
+│           └── response.js     # Response formatting
+│
+├── 📊 Database
+│   └── scripts/
+│       ├── migrate.js          # Database schema
+│       └── seed.js             # Demo data
+│
+├── 🚀 Deployment
+│   ├── nginx.conf              # NGINX reverse proxy config
+│   ├── orbit-resolve.service   # Systemd service
+│   ├── k8s-deployment.yaml     # Kubernetes manifests
+│   └── .github-workflows-ci.yml # GitHub Actions CI/CD
+│
+└── 🔧 Development
+    ├── .git-hooks-pre-commit   # Git pre-commit checks
+    └── scripts/
+        └── deploy.sh           # Production deployment script
+
+
+═══════════════════════════════════════════════════════════════════════════
+FILE DESCRIPTIONS
+═══════════════════════════════════════════════════════════════════════════
+
+server.js
+  - Main application entry point
+  - Express server configuration
+  - Middleware setup (security, logging, rate limiting)
+  - Route mounting
+  - Graceful shutdown handling
+
+src/db.js
+  - PostgreSQL connection pool
+  - Transaction management
+  - Query execution helpers
+
+src/middleware/
+  - auth.js: JWT token generation/verification, RBAC authorization
+  - errorHandler.js: Global error handling, validation errors
+
+src/models/
+  - Implements data access layer
+  - All database queries
+  - User, Request, Policy, Organization models
+  - Audit logging
+
+src/routes/
+  - RESTful API endpoints
+  - Request validation
+  - Response formatting
+  - Authorization checks
+
+src/services/
+  - riskEngine.js: ML-based scoring, auto-approval logic
+  - integrations.js: GitHub, AWS, Okta, Datadog connectors
+  - notifications.js: Email templates & sending
+
+src/utils/
+  - validation.js: Joi schemas for input validation
+  - response.js: Standard response formatting
+
+scripts/
+  - migrate.js: Creates all database tables and indexes
+  - seed.js: Loads demo data for testing
+  - deploy.sh: Production deployment automation
+
+Docker files
+  - Dockerfile: Container image definition
+  - docker-compose.yml: Local development stack (app + postgres)
+
+Configuration files
+  - .env.example: Environment variable template
+  - .env.local: Local development settings
+  - nginx.conf: NGINX reverse proxy (production)
+  - orbit-resolve.service: Systemd service (Linux)
+  - k8s-deployment.yaml: Kubernetes deployment manifests
+  - .github-workflows-ci.yml: GitHub Actions CI/CD pipeline
+
+
+═══════════════════════════════════════════════════════════════════════════
+DATA FLOW
+═══════════════════════════════════════════════════════════════════════════
+
+1. CLIENT REQUEST
+   Browser sends HTTP request → CORS check → Rate limiter
+
+2. AUTHENTICATION
+   Extract Bearer token → Verify JWT → Load user context
+
+3. ROUTING
+   Match URL path → Route handler → Validate input
+
+4. BUSINESS LOGIC
+   Query database via models → Execute business rules → Calculate scores
+
+5. DATABASE
+   Execute queries → Transaction management → Return data
+
+6. RESPONSE
+   Format response → Apply security headers → Send to client
+
+
+═══════════════════════════════════════════════════════════════════════════
+SCALABILITY CONSIDERATIONS
+═══════════════════════════════════════════════════════════════════════════
+
+✓ Horizontal scaling: Stateless API servers behind load balancer
+✓ Database: Connection pooling, read replicas, sharding ready
+✓ Caching: Redis-ready for session & policy cache
+✓ CDN: Static assets served via CloudFront/Cloudflare
+✓ Message queue: Bull/RabbitMQ for async operations
+✓ Monitoring: Structured logging, metrics collection ready
+✓ Load balancing: NGINX or cloud provider (ALB, NLB)
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+Ready for production deployment!

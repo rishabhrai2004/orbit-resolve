@@ -1,0 +1,30 @@
+/* Systemd Service Configuration */
+[Unit]
+Description=Orbit Resolve - Operational Decision Engine
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=orbit
+WorkingDirectory=/opt/orbit-resolve
+Environment="NODE_ENV=production"
+Environment="PORT=3000"
+EnvironmentFile=/etc/orbit-resolve/.env
+
+ExecStart=/usr/bin/node /opt/orbit-resolve/server.js
+
+# Auto-restart on failure
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/orbit-resolve/logs
+
+[Install]
+WantedBy=multi-user.target

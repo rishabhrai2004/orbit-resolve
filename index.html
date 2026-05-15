@@ -1,0 +1,88 @@
+<!-- Enhanced Orbit Resolve Frontend - API Ready -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Resolve — Operational Decision Engine</title>
+  <meta name="description" content="Most operational approvals should never require human involvement. Orbit Resolve is autonomous operational execution infrastructure." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="wordmark">
+          <svg class="wordmark-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+            <path d="M12 3C12 3 18.5 7 18.5 12C18.5 17 12 21 12 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+          </svg>
+          <span>Orbit Resolve</span>
+        </div>
+        <div class="org-pill">Acme Corp</div>
+      </div>
+
+      <nav class="nav">
+        <div class="nav-section">
+          <div class="nav-label">Execute</div>
+          <a class="nav-link active" data-view="request" href="#" onclick="navigate('request');return false">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Run Operation
+          </a>
+          <a class="nav-link" data-view="resolution" href="#" onclick="navigate('resolution');return false">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M6 9l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Last Outcome
+          </a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">Oversee</div>
+          <a class="nav-link" data-view="exceptions" href="#" onclick="navigate('exceptions');return false">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M9 6v4M9 12.5h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Exceptions
+            <span class="nav-count" id="reviewBadge">3</span>
+          </a>
+          <a class="nav-link" data-view="policies" href="#" onclick="navigate('policies');return false">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 6h8M5 9h8M5 12h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Policies
+          </a>
+          <a class="nav-link" data-view="dashboard" href="#" onclick="navigate('dashboard');return false">
+            <svg class="nav-ico" viewBox="0 0 18 18" fill="none"><path d="M2 13l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Impact
+          </a>
+        </div>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="engine-status">
+          <div class="engine-dot"></div>
+          <div class="engine-text">
+            <span class="engine-state">Engine active</span>
+            <span class="engine-detail">142 ops resolved today · 0 pending</span>
+          </div>
+        </div>
+        <div class="persona-bar">
+          <button class="p-tab active" data-role="employee" onclick="setRole('employee')">Employee</button>
+          <button class="p-tab" data-role="manager" onclick="setRole('manager')">Manager</button>
+          <button class="p-tab" data-role="admin" onclick="setRole('admin')">Admin</button>
+          <button class="p-tab" data-role="exec" onclick="setRole('exec')">Exec</button>
+        </div>
+        <div class="user-row">
+          <div class="avatar" id="avatar">JD</div>
+          <div>
+            <div class="u-name" id="uName">Jordan Davis</div>
+            <div class="u-role" id="uRole">Software Engineer</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <main class="main" id="main"></main>
+  </div>
+  <div id="toasts"></div>
+  <script src="app.js"></script>
+</body>
+</html>

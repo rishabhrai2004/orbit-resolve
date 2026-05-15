@@ -1,0 +1,213 @@
+/* API Documentation & Postman Collection */
+{
+  "info": {
+    "name": "Orbit Resolve API",
+    "description": "Autonomous Operational Execution Infrastructure",
+    "version": "3.0.0"
+  },
+  "baseUrl": "http://localhost:3000/api/v1",
+  "auth": {
+    "type": "bearer",
+    "bearer": {
+      "token": "{{auth_token}}"
+    }
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"user@company.com\",\"password\":\"securepass123\",\"name\":\"John Doe\",\"organization_name\":\"Acme Corp\"}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"user@company.com\",\"password\":\"securepass123\"}"
+            }
+          }
+        },
+        {
+          "name": "Verify Token",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/auth/verify",
+            "header": [{"key": "Authorization", "value": "Bearer {{auth_token}}"}]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Requests/Operations",
+      "item": [
+        {
+          "name": "Create Request",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/requests",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"GitHub repo access\",\"description\":\"Grant access to core-api repo\",\"type\":\"SaaS Provisioning\",\"urgency\":\"low\",\"target_resource\":\"github.com/company/core-api\"}"
+            }
+          }
+        },
+        {
+          "name": "List Requests",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/requests?status=pending&limit=50&offset=0"
+          }
+        },
+        {
+          "name": "Get Request Details",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/requests/:requestId"
+          }
+        },
+        {
+          "name": "Approve Request",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/requests/:requestId/approval",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\":\"approved\",\"notes\":\"Approved for platform migration\"}"
+            }
+          }
+        },
+        {
+          "name": "List Exceptions",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/requests/exceptions/list?limit=50"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Policies",
+      "item": [
+        {
+          "name": "Create Policy",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/policies",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\":\"SaaS Provisioning\",\"description\":\"Standard tools under $50/month\",\"threshold\":\"<$50/mo\",\"auto_approval_rate\":94}"
+            }
+          }
+        },
+        {
+          "name": "List Policies",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/policies"
+          }
+        },
+        {
+          "name": "Get Policy",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/policies/:policyId"
+          }
+        },
+        {
+          "name": "Update Policy",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/policies/:policyId",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"auto_approval_rate\":96}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/me"
+          }
+        },
+        {
+          "name": "List Organization Users",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users?limit=50"
+          }
+        },
+        {
+          "name": "Invite User",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/invite",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"newuser@company.com\",\"name\":\"New User\",\"role\":\"manager\"}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Billing",
+      "item": [
+        {
+          "name": "Get Subscription",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/billing/subscription"
+          }
+        },
+        {
+          "name": "Create Checkout",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/billing/checkout",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"plan\":\"professional\"}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get Organization Stats",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/stats"
+          }
+        },
+        {
+          "name": "Get Audit Logs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/audit-logs?limit=100"
+          }
+        }
+      ]
+    }
+  ]
+}

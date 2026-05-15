@@ -1,0 +1,19 @@
+/* Git Pre-commit Hook */
+#!/bin/bash
+set -e
+
+echo "🔍 Running pre-commit checks..."
+
+# Lint check
+echo "  → ESLint..."
+npx eslint src/ --max-warnings 0
+
+# Security audit
+echo "  → npm audit..."
+npm audit --audit-level=high
+
+# Tests
+echo "  → Running tests..."
+npm test -- --bail
+
+echo "✓ All checks passed!"
