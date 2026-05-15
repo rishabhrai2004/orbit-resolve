@@ -626,7 +626,7 @@ function copyAIRec() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function startApp() {
   render();
   // add Audit History floating button
   const btn = document.createElement('button');
@@ -643,7 +643,13 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.style.cursor = 'pointer';
   btn.onclick = openAuditModal;
   document.body.appendChild(btn);
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  startApp();
+}
 
 async function openAuditModal() {
   const token = localStorage.getItem('auth_token');
