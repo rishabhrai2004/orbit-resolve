@@ -1,0 +1,31 @@
+id,title,endpoint,body,expected_status,expected_assertions,priority
+1,"Happy-path SaaS provisioning","POST /api/v1/requests","{title:...,type:SaaS Provisioning,urgency:low}",201,"confidence>=50; ai_recommendation present",P0
+2,"Low-confidence escalation","POST /api/v1/requests","{title:...,type:Privileged Access,urgency:low}",201,"confidence<60; exception persisted",P0
+3,"High-confidence auto-approve","POST /api/v1/requests","{title:...,type:SaaS Provisioning}",201,"confidence>=70; provision triggered",P0
+4,"Privileged access emergency","POST /api/v1/requests","{urgency:high,type:Privileged Access}",201,"auto-approve or escalation; urgency flagged",P0
+5,"Vendor onboarding blocked","POST /api/v1/requests","{type:Vendor Onboarding}",201,"policy conflict; exception",P1
+6,"Costly purchase threshold","POST /api/v1/requests","{type:SaaS Provisioning}",201,"finance approval required",P1
+7,"Policy change ripple","POST /api/v1/requests","{type:SaaS Provisioning}",201,"policy version logged",P2
+8,"Multi-tenant isolation","POST /api/v1/requests","{target_resource:shared-name}",201,"org scoping enforced",P0
+9,"Role-based denial","POST /api/v1/requests","{requestor_role:contractor}",201,"deny recommended; role rule",P1
+10,"Repeated denial pattern","POST /api/v1/requests","{user:repeat}",201,"history affects score",P2
+11,"AI success recommendation","POST /api/v1/requests","{target_resource:llm-success}",201,"ai_recommendation.meta.model != 'fallback'",P1
+12,"AI service outage fallback","POST /api/v1/requests","{target_resource:llm-fallback}",201,"ai_recommendation.meta.fallback present",P0
+13,"Partial AI confidence mismatch","POST /api/v1/requests","{target_resource:conflict-signal}",201,"score + ai_recommendation conflict visible",P2
+14,"Approver override","PATCH /api/v1/requests/:id/approval","{status:approved}",200,"status updated; audit notes",P0
+15,"Audit export","GET /api/v1/requests/exceptions/list","",200,"exportable exceptions with AI meta",P1
+16,"Rate limiting","POST /api/v1/requests (burst)","{rapid requests}",429,"some requests 429; retry guidance",P2
+17,"DB outage resilience","POST /api/v1/requests","{target_resource:db-outage}","5xx or graceful","clear error; no partial writes",P1
+18,"Token expiry/refresh","POST /api/v1/requests","{with expired token}",401,"401 returned; re-auth required",P0
+19,"SSO + provisioning","POST /api/v1/requests","{SSO user}",201,"SSO claims used; bundle matches role",P1
+20,"Temporary access revoke","POST /api/v1/requests","{type:Privileged Access}",201,"revocation scheduled; audit entry",P1
+21,"Data access/legal hold","POST /api/v1/requests","{type:Data Access,urgency:high}",201,"legal flagged; exception persists",P0
+22,"Multi-step approval","POST /api/v1/requests then approvals","{enterprise-tool}",201,"multi-step approvals required",P0
+23,"Concurrent approvals","PATCH /api/v1/requests/:id/approval","{status:approved}",200,"audit logs for both approvers",P2
+24,"Localization & accessibility","POST /api/v1/requests","{locale:xx}",201,"UI/localization independent of AI meta",P2
+25,"Malicious actor detection","POST /api/v1/requests","{suspicious}",201,"security escalation; alert generated",P0
+26,"Billing reconciliation","POST /api/v1/requests","{type:Billing}",201,"billing record created",P1
+27,"Feature-flag pathing","POST /api/v1/requests","{with flag}",201,"canary model used when flag on",P2
+28,"Large batch provisioning","POST /api/v1/requests (bulk)","{bulk 50}",201,"batch accepted; progress reported",P1
+29,"Exported audit signature","GET /api/v1/requests/exceptions/list then export","",200,"export includes signer, timestamp, AI model",P1
+30,"Canary LLM swap","POST /api/v1/requests (A/B)","{llm-ab}",201,"A/B outputs recorded; fallback honored",P2

@@ -1,0 +1,2225 @@
+[
+  {
+    "scenario": 1,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "ecb7e74e-9e4d-443f-9628-afd319780a79",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Happy-path SaaS provisioning",
+        "description": "Provision standard SaaS seat",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "figma",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:50.869Z",
+        "updated_at": "2026-05-15T21:05:50.880Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 2,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "93a415e7-bd80-4dd6-be78-b4db4b3d1c66",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Low-confidence escalation",
+        "description": "Access with low score",
+        "type": "Privileged Access",
+        "requestor_role": "admin",
+        "target_resource": "db.read",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 55,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:52.186Z",
+        "updated_at": "2026-05-15T21:05:52.188Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=55)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 55,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 3,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "45922573-f694-4eb5-a1ee-0eeff2682493",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "High-confidence auto-approve",
+        "description": "Routine repo access",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "core-api",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:53.306Z",
+        "updated_at": "2026-05-15T21:05:53.314Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 4,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "633c4acb-5e94-4ab3-b665-3b1e0a6bfae6",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Privileged access emergency",
+        "description": "On-call emergency DB access",
+        "type": "Privileged Access",
+        "requestor_role": "admin",
+        "target_resource": "aurora-prod-db",
+        "urgency": "high",
+        "status": "pending",
+        "confidence": 75,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:54.473Z",
+        "updated_at": "2026-05-15T21:05:54.484Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Auto-approve — High confidence — auto-approval suggested; Urgency flagged (confidence=75)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Auto-approve",
+              "reasoning": "High confidence — auto-approval suggested; Urgency flagged",
+              "confidence": 75,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 5,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "11a0c52e-46ff-40e5-96b3-38d1b2fbac05",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Vendor onboarding blocked",
+        "description": "Add new vendor Anthropic",
+        "type": "Vendor Onboarding",
+        "requestor_role": "admin",
+        "target_resource": "anthropic-api",
+        "urgency": "medium",
+        "status": "pending",
+        "confidence": 50,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:55.607Z",
+        "updated_at": "2026-05-15T21:05:55.615Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=50)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 50,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 6,
+    "error": "TypeError: fetch failed"
+  },
+  {
+    "scenario": 7,
+    "error": "TypeError: fetch failed"
+  },
+  {
+    "scenario": 8,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "754afaa1-8554-45af-a929-f5a9c9cfc9e9",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Multi-tenant isolation",
+        "description": "Same resource across tenants",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "shared-name",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:57.059Z",
+        "updated_at": "2026-05-15T21:05:57.075Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 9,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "b266e4f5-e33e-414c-817d-239f21675a45",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Role-based denial",
+        "description": "Contractor requests full access",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "engineering-bundle",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:58.439Z",
+        "updated_at": "2026-05-15T21:05:58.449Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 10,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "aa7f7747-e67e-48e6-a560-56d10bc226dc",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Repeated denial pattern",
+        "description": "User with prior denials",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "repeat-request",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:05:59.576Z",
+        "updated_at": "2026-05-15T21:05:59.583Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 11,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "92dd6f6a-79c8-4598-b335-336ff386eadf",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "AI success recommendation",
+        "description": "LLM recommended approval",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "llm-success",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:00.714Z",
+        "updated_at": "2026-05-15T21:06:00.716Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 12,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "46682fda-53dc-493a-905b-d8f5bfd1e683",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "AI service outage fallback",
+        "description": "LLM returns 404 fallback",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "llm-fallback",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:01.582Z",
+        "updated_at": "2026-05-15T21:06:01.590Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 13,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "803258cd-1022-49b9-845b-47cb030bafe7",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Partial AI confidence mismatch",
+        "description": "AI approves but score low",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "conflict-signal",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:02.389Z",
+        "updated_at": "2026-05-15T21:06:02.399Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 14,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "d1099d90-a598-40a2-9707-0d6b21e71805",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Approver override",
+        "description": "Manager overrides recommendation",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "override-case",
+        "urgency": "medium",
+        "status": "pending",
+        "confidence": 35,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:03.231Z",
+        "updated_at": "2026-05-15T21:06:03.247Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=35)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 35,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 15,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "b098e390-a079-4de5-bf47-01ec03901477",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Audit export",
+        "description": "Export exceptions for compliance",
+        "type": "Audit",
+        "requestor_role": "admin",
+        "target_resource": "export",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 40,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:04.058Z",
+        "updated_at": "2026-05-15T21:06:04.065Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=40)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 40,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 16,
+    "responses": [
+      {
+        "status": 201,
+        "body": {
+          "id": "7c58b2b0-2bb9-4c4c-9221-71bc0dec5202",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #1",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.907Z",
+          "updated_at": "2026-05-15T21:06:04.909Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "e14b4b63-8e0c-48ec-a928-e80b95c0a6fa",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #2",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.922Z",
+          "updated_at": "2026-05-15T21:06:04.949Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "2b0d6ab7-47d4-42d0-87fe-8a679225e464",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #3",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.990Z",
+          "updated_at": "2026-05-15T21:06:05.028Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "33f676dd-a76c-40fe-b24f-09c899e2d833",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #4",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.126Z",
+          "updated_at": "2026-05-15T21:06:05.159Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "4c7021b8-7d8e-478f-b851-b8d3c269828e",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #5",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.992Z",
+          "updated_at": "2026-05-15T21:06:05.037Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "41cfba77-2dfd-410d-b556-8f39bb52a14a",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #6",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.000Z",
+          "updated_at": "2026-05-15T21:06:05.109Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "fbe8d284-6633-439c-9f75-7e4ec7ad45fe",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #7",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.014Z",
+          "updated_at": "2026-05-15T21:06:05.081Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "39a5014d-7c15-42a4-ad2f-f3f9c6c29011",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #8",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.006Z",
+          "updated_at": "2026-05-15T21:06:05.093Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "20f0f3ce-41a7-41d4-89f7-1062d57e79e4",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #9",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.079Z",
+          "updated_at": "2026-05-15T21:06:05.138Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "4fb362a7-d9e8-474e-884d-5d2eba897737",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #10",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.056Z",
+          "updated_at": "2026-05-15T21:06:05.127Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "cac35d0b-814c-4fc9-80a5-6bd6697cc27b",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #11",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.095Z",
+          "updated_at": "2026-05-15T21:06:05.142Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "299f5964-29c3-40b3-be03-13c3af65969c",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #12",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.107Z",
+          "updated_at": "2026-05-15T21:06:05.145Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "f7c51fa5-7898-421f-b676-99e2c79c2444",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #13",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.092Z",
+          "updated_at": "2026-05-15T21:06:05.145Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "46f9f95e-f788-4c0e-8660-d617cc9f3871",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #14",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.110Z",
+          "updated_at": "2026-05-15T21:06:05.146Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "7ab6725e-a2ef-43b1-b759-ceec8c9bce7d",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #15",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.126Z",
+          "updated_at": "2026-05-15T21:06:05.152Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "32ff7abe-151a-418b-8055-888750bba747",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #16",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.118Z",
+          "updated_at": "2026-05-15T21:06:05.149Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "297d4127-4c00-4864-858d-6d96e1a6c39a",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #17",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.189Z",
+          "updated_at": "2026-05-15T21:06:05.196Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "d5757759-42f7-4360-867b-2be1b3ce941e",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #18",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.125Z",
+          "updated_at": "2026-05-15T21:06:05.151Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "6346d1c8-5ccb-421e-b119-282f8c465157",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #19",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.135Z",
+          "updated_at": "2026-05-15T21:06:05.167Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "9ec71d7d-480c-45c3-8a10-40a5cc419fb5",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #20",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.126Z",
+          "updated_at": "2026-05-15T21:06:05.155Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "8981701f-b4c1-49e5-b91c-a9037a7086f3",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #21",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.138Z",
+          "updated_at": "2026-05-15T21:06:05.168Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "467e0506-6027-44ec-b65f-b96f5e023b1f",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #22",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.981Z",
+          "updated_at": "2026-05-15T21:06:05.019Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "6ae28b88-b9bb-48e4-bac0-7653b7b83178",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #23",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.991Z",
+          "updated_at": "2026-05-15T21:06:05.020Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "c6f97d3e-8259-4f1c-8522-2976707fc34e",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #24",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.993Z",
+          "updated_at": "2026-05-15T21:06:05.021Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "5c3ea728-56ad-4e35-a180-378f1282bc8c",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #25",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.995Z",
+          "updated_at": "2026-05-15T21:06:05.024Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "a61f8646-cf4d-4ac7-ba3d-929b52e42b4e",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #26",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:04.999Z",
+          "updated_at": "2026-05-15T21:06:05.032Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "eb9993d0-4a1c-4f3b-ad63-adb3655f84ae",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #27",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.000Z",
+          "updated_at": "2026-05-15T21:06:05.055Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "39de6990-e569-4ff0-b21f-eff42c16f883",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #28",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.001Z",
+          "updated_at": "2026-05-15T21:06:05.041Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "6b8d30af-c849-4a02-8634-c9078ff3c541",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #29",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.004Z",
+          "updated_at": "2026-05-15T21:06:05.080Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "status": 201,
+        "body": {
+          "id": "89772bf5-7f77-4558-9433-8b84bbceb7d6",
+          "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+          "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+          "policy_id": null,
+          "title": "Rate limiting #30",
+          "description": "Simulate many rapid requests",
+          "type": "SaaS Provisioning",
+          "requestor_role": "admin",
+          "target_resource": "rate-test",
+          "urgency": "low",
+          "status": "pending",
+          "confidence": 25,
+          "approver_id": null,
+          "approval_notes": null,
+          "approved_at": null,
+          "created_at": "2026-05-15T21:06:05.005Z",
+          "updated_at": "2026-05-15T21:06:05.048Z",
+          "ai_recommendation": {
+            "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+            "meta": {
+              "error": "404 Not Found",
+              "fallback": {
+                "action": "Deny or validate",
+                "reasoning": "Low confidence — recommend denial or additional validation",
+                "confidence": 25,
+                "next_steps": [
+                  "Verify requester identity and business justification",
+                  "Confirm policy owner sign-off if unsure",
+                  "If granting, scope access and set short expiry"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "scenario": 17,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "11f92d96-6494-439c-8b3a-622c01de4267",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "DB outage resilience",
+        "description": "DB unavailable",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "db-outage",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:06.535Z",
+        "updated_at": "2026-05-15T21:06:06.537Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 18,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "ddcd4801-6f51-433a-a49d-e09adc8bff64",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Token expiry/refresh",
+        "description": "Expired token mid-flow",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "token-test",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:07.604Z",
+        "updated_at": "2026-05-15T21:06:07.620Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 19,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "e1634969-e6b3-4fe8-bde9-e8260c5a1c3d",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "SSO + provisioning",
+        "description": "Onboard via SSO",
+        "type": "Onboarding",
+        "requestor_role": "admin",
+        "target_resource": "onboard-bundle",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 40,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:08.732Z",
+        "updated_at": "2026-05-15T21:06:08.740Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=40)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 40,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 20,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "ec91f9a4-5c6f-4e50-be3f-0425ec209c64",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Temporary access revoke",
+        "description": "Short-lived access",
+        "type": "Privileged Access",
+        "requestor_role": "admin",
+        "target_resource": "temp-access",
+        "urgency": "medium",
+        "status": "pending",
+        "confidence": 65,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:09.876Z",
+        "updated_at": "2026-05-15T21:06:09.878Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=65)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 65,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 21,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "e6f17d3b-f1b4-433c-b9e0-a0e9d15dd87c",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Data access/legal hold",
+        "description": "Sensitive data approval",
+        "type": "Data Access",
+        "requestor_role": "admin",
+        "target_resource": "sensitive-db",
+        "urgency": "high",
+        "status": "pending",
+        "confidence": 60,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:10.996Z",
+        "updated_at": "2026-05-15T21:06:11.012Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested; Urgency flagged (confidence=60)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested; Urgency flagged",
+              "confidence": 60,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 22,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "7c19ab54-3040-4b2e-9a39-fbeee2bcf8c9",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Multi-step approval",
+        "description": "Security + finance approvals",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "enterprise-tool",
+        "urgency": "high",
+        "status": "pending",
+        "confidence": 45,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:12.135Z",
+        "updated_at": "2026-05-15T21:06:12.144Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested; Urgency flagged (confidence=45)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested; Urgency flagged",
+              "confidence": 45,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 23,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "a32d641e-6509-4de0-80fe-9aebce7ac396",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Concurrent approvals",
+        "description": "Two approvers act",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "concurrent",
+        "urgency": "medium",
+        "status": "pending",
+        "confidence": 35,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:13.226Z",
+        "updated_at": "2026-05-15T21:06:13.227Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=35)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 35,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 24,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "280f2fad-cb3e-4d97-83a0-29da592885b6",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Localization & accessibility",
+        "description": "Locale-specific request",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "locale-test",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:14.302Z",
+        "updated_at": "2026-05-15T21:06:14.303Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 25,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "391440b3-9743-42a3-ad45-acfa983c18b8",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Malicious actor detection",
+        "description": "Suspicious IP/location",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "suspicious",
+        "urgency": "high",
+        "status": "pending",
+        "confidence": 45,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:15.464Z",
+        "updated_at": "2026-05-15T21:06:15.472Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested; Urgency flagged (confidence=45)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested; Urgency flagged",
+              "confidence": 45,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 26,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "8952c729-7bef-42fd-a7cb-ba926efcddad",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Billing reconciliation",
+        "description": "Provision increments billing",
+        "type": "Billing",
+        "requestor_role": "admin",
+        "target_resource": "billing-item",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 40,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:16.629Z",
+        "updated_at": "2026-05-15T21:06:16.645Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=40)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 40,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 27,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "64f4ddc2-cc88-46b6-a323-ad13d7a1e684",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Feature-flag pathing",
+        "description": "Canary risk model",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "feature-flag",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:17.764Z",
+        "updated_at": "2026-05-15T21:06:17.781Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 28,
+    "responses": 50
+  },
+  {
+    "scenario": 29,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "1d35e97a-f98f-4690-8d93-5a7d3db024e4",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Exported audit signature",
+        "description": "Export includes signer and model",
+        "type": "Audit",
+        "requestor_role": "admin",
+        "target_resource": "export-signed",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 40,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:20.483Z",
+        "updated_at": "2026-05-15T21:06:20.492Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Manager review — Moderate confidence — manager review suggested (confidence=40)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Manager review",
+              "reasoning": "Moderate confidence — manager review suggested",
+              "confidence": 40,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "scenario": 30,
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "044fa5ae-ea4b-485d-bbc8-a45fde94c793",
+        "org_id": "c6f63b9d-d7d8-4428-926f-cd621cec4a0e",
+        "user_id": "9ce73ecd-a4f9-4c54-b5fa-9992eedc57b6",
+        "policy_id": null,
+        "title": "Canary LLM swap",
+        "description": "A/B LLM outputs",
+        "type": "SaaS Provisioning",
+        "requestor_role": "admin",
+        "target_resource": "llm-ab",
+        "urgency": "low",
+        "status": "pending",
+        "confidence": 25,
+        "approver_id": null,
+        "approval_notes": null,
+        "approved_at": null,
+        "created_at": "2026-05-15T21:06:21.606Z",
+        "updated_at": "2026-05-15T21:06:21.607Z",
+        "ai_recommendation": {
+          "text": "Fallback recommendation (no AI): Deny or validate — Low confidence — recommend denial or additional validation (confidence=25)",
+          "meta": {
+            "error": "404 Not Found",
+            "fallback": {
+              "action": "Deny or validate",
+              "reasoning": "Low confidence — recommend denial or additional validation",
+              "confidence": 25,
+              "next_steps": [
+                "Verify requester identity and business justification",
+                "Confirm policy owner sign-off if unsure",
+                "If granting, scope access and set short expiry"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+]

@@ -5,7 +5,7 @@
 
 const S = {
   view:'request', role:'employee',
-  reqState:'idle', lastReq:null, lastOutcome:null,
+  reqState:'idle', lastReq:null, lastOutcome:null, aiRec:null,
   charts:{}
 };
 
@@ -297,6 +297,16 @@ function vResolution() {
       <div class="kv"><span class="kv-label">Policy matched</span><span class="kv-value"><span class="badge b-accent">${c.policy}</span> ${c.policyName}</span></div>
       <div class="kv"><span class="kv-label">Confidence</span><span class="kv-value"><span class="conf-row"><span class="conf-track"><span class="conf-fill" style="width:${c.conf}%"></span></span><span class="conf-val" style="color:var(--ok)">${c.conf}%</span></span></span></div>
       <div class="kv"><span class="kv-label">Action taken</span><span class="kv-value">${c.action}</span></div>
+      ${S.aiRec ? `
+      <div class="kv"><span class="kv-label">AI recommendation</span><span class="kv-value">${S.aiRec.text || ''}${S.aiRec.meta && S.aiRec.meta.fallback ? ' <span style="color:#b45309;margin-left:8px">(fallback)</span>' : ''}</span></div>
+      ${S.aiRec && S.aiRec.meta && S.aiRec.meta.fallback && S.aiRec.meta.fallback.next_steps ? `
+      <div class="ai-next-steps" style="margin-top:10px;">
+        <div class="ai-next-label">Recommended next steps</div>
+        <ol style="margin:6px 0 0 18px">${S.aiRec.meta.fallback.next_steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+        <div style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick="copyAIRec()">Copy audit snippet</button></div>
+      </div>
+      ` : ''}
+      ` : ''}
       <div class="kv"><span class="kv-label">Manager approval</span><span class="kv-value" style="color:var(--ok)">Skipped — prior pattern match</span></div>
     </div></div>
 
@@ -534,12 +544,44 @@ function go() {
   runOp(v, esc);
 }
 
-function runOp(text, esc) {
+async function runOp(text, esc) {
   S.lastReq = text;
-  S.lastOutcome = esc ? 'escalated' : 'resolved';
   S.reqState = 'evaluating';
   S.charts = {};
+  S.aiRec = null;
   navigate('request');
+
+  // Attempt to create the request via API and capture AI recommendation
+  try {
+    const token = localStorage.getItem('auth_token');
+    const res = await fetch('http://localhost:3000/api/v1/requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
+      body: JSON.stringify({ title: text, description: text, type: 'SaaS Provisioning', urgency: esc ? 'high' : 'low', target_resource: text })
+    });
+
+    if (!res.ok) {
+      // fallback to local resolution animation but mark escalated
+      S.lastOutcome = 'escalated';
+      S.reqState = 'evaluating';
+      setTimeout(() => { S.reqState = 'escalated'; render(); }, 1200);
+      return;
+    }
+
+    const data = await res.json();
+    S.aiRec = data.ai_recommendation || null;
+    // decide resolution vs escalation heuristically from returned confidence
+    const conf = Number(data.confidence || 0);
+    S.lastOutcome = conf < 50 ? 'escalated' : 'resolved';
+    S.reqState = 'evaluating';
+    // let animation run then finish; finish() will use lastOutcome
+    setTimeout(() => finish(), 700 + Math.random() * 800);
+
+  } catch (err) {
+    S.lastOutcome = 'escalated';
+    S.reqState = 'evaluating';
+    setTimeout(() => { S.reqState = 'escalated'; render(); }, 1200);
+  }
 }
 
 function toast(msg) {
@@ -550,4 +592,143 @@ function toast(msg) {
   setTimeout(() => el.remove(), 3000);
 }
 
-document.addEventListener('DOMContentLoaded', render);
+function copyAIRec() {
+  try {
+    const ai = S.aiRec;
+    if (!ai) return toast('No AI recommendation to copy');
+    const meta = ai.meta && ai.meta.fallback ? ai.meta.fallback : null;
+    const lines = [];
+    lines.push('AI Recommendation: ' + (ai.text || ''));
+    if (meta) {
+      lines.push('Action: ' + (meta.action || meta.action || 'n/a'));
+      lines.push('Reasoning: ' + (meta.reasoning || ''));
+      lines.push('Confidence: ' + (meta.confidence ?? 'n/a'));
+      if (Array.isArray(meta.next_steps)) {
+        lines.push('Next steps:');
+        meta.next_steps.forEach((s, i) => lines.push(`${i+1}. ${s}`));
+      }
+    }
+    const text = lines.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => toast('Copied recommendation'));
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      toast('Copied recommendation');
+    }
+  } catch (err) {
+    console.error(err);
+    toast('Copy failed');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+  // add Audit History floating button
+  const btn = document.createElement('button');
+  btn.className = 'audit-fab';
+  btn.textContent = 'Audit';
+  btn.style.position = 'fixed';
+  btn.style.right = '18px';
+  btn.style.bottom = '18px';
+  btn.style.padding = '10px 12px';
+  btn.style.borderRadius = '10px';
+  btn.style.border = 'none';
+  btn.style.background = '#111827';
+  btn.style.color = '#fff';
+  btn.style.cursor = 'pointer';
+  btn.onclick = openAuditModal;
+  document.body.appendChild(btn);
+});
+
+async function openAuditModal() {
+  const token = localStorage.getItem('auth_token');
+  const modalId = 'auditModal';
+  try {
+    const res = await fetch('http://localhost:3000/api/v1/requests/exceptions/list', {
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) }
+    });
+    if (!res.ok) {
+      return toast('Failed to load audit history');
+    }
+    const data = await res.json();
+    renderAuditModal(data.exceptions || []);
+  } catch (err) {
+    console.error(err);
+    toast('Error loading audit history');
+  }
+}
+
+function closeAuditModal() {
+  const el = document.getElementById('auditModal');
+  if (el) el.remove();
+}
+
+function renderAuditModal(items) {
+  closeAuditModal();
+  const wrap = document.createElement('div');
+  wrap.id = 'auditModal';
+  wrap.style.position = 'fixed';
+  wrap.style.left = '0';
+  wrap.style.top = '0';
+  wrap.style.width = '100%';
+  wrap.style.height = '100%';
+  wrap.style.background = 'rgba(0,0,0,0.4)';
+  wrap.style.display = 'flex';
+  wrap.style.alignItems = 'center';
+  wrap.style.justifyContent = 'center';
+  wrap.style.zIndex = 9999;
+
+  const box = document.createElement('div');
+  box.style.width = '900px';
+  box.style.maxHeight = '80vh';
+  box.style.overflow = 'auto';
+  box.style.background = '#fff';
+  box.style.borderRadius = '8px';
+  box.style.padding = '18px';
+  box.style.boxShadow = '0 20px 60px rgba(0,0,0,0.3)';
+
+  const header = document.createElement('div');
+  header.style.display = 'flex';
+  header.style.justifyContent = 'space-between';
+  header.style.alignItems = 'center';
+  header.innerHTML = `<div style="font-weight:600;font-size:16px">Audit History</div><div style="font-size:13px;color:#6b7280">${items.length} items</div>`;
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Close';
+  closeBtn.className = 'btn btn-ghost btn-sm';
+  closeBtn.onclick = closeAuditModal;
+  closeBtn.style.marginLeft = '12px';
+  header.appendChild(closeBtn);
+
+  box.appendChild(header);
+
+  items.forEach(it => {
+    const row = document.createElement('div');
+    row.style.borderTop = '1px solid #eee';
+    row.style.padding = '12px 0';
+    const rec = (it.recommendation && (typeof it.recommendation === 'string' ? it.recommendation : it.recommendation.text)) || '';
+    const meta = it.recommendation && it.recommendation.meta ? it.recommendation.meta : (it.recommendation && it.recommendation.model ? { model: it.recommendation.model } : null);
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div style="max-width:68%">
+          <div style="font-weight:600">${it.title || it.request_id || 'Request'}</div>
+          <div style="color:#374151;margin-top:6px">${rec}</div>
+          ${meta && meta.fallback && meta.fallback.next_steps ? `<div style="margin-top:8px;color:#6b7280">Next steps: ${meta.fallback.next_steps.join(' • ')}</div>` : ''}
+        </div>
+        <div style="text-align:right">
+          <div style="color:#6b7280">${new Date(it.created_at).toLocaleString()}</div>
+          <div style="margin-top:8px"><button class="btn btn-ghost btn-sm" onclick='(function(){navigator.clipboard&&navigator.clipboard.writeText(`${(rec||'').replace(/`/g,'')}`);alert("Copied");})()'>Copy</button></div>
+        </div>
+      </div>
+    `;
+    box.appendChild(row);
+  });
+
+  wrap.appendChild(box);
+  document.body.appendChild(wrap);
+}

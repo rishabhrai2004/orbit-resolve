@@ -3,6 +3,7 @@ import express from 'express';
 import db from '../db.js';
 import { authenticate, authorize } from '../middleware/auth.js';
 import * as requestModel from '../models/request.js';
+import { generateRecommendation } from '../services/ai.js';
 import { ApiError } from '../middleware/errorHandler.js';
 import { logAction } from '../models/auditLog.js';
 
@@ -38,9 +39,17 @@ router.post('/', authenticate, async (req, res, next) => {
     request.confidence = confidence;
     const updated = await requestModel.setRequestConfidence(request.id, req.user.org_id, confidence);
 
+    // Ask AI for a recommendation (non-blocking for user) — but attempt and include result
+    let aiResult = { text: 'AI not configured' };
+    try {
+      aiResult = await generateRecommendation(req.user.org_id, { ...request, id: request.id });
+    } catch (err) {
+      console.warn('AI recommendation failed:', err.message || err);
+    }
+
     await logAction(req.user.org_id, req.user.id, 'REQUEST_CREATED', 'request', request.id);
 
-    res.status(201).json(updated || request);
+    res.status(201).json({ ...(updated || request), ai_recommendation: aiResult });
   } catch (err) {
     next(err);
   }
