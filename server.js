@@ -87,6 +87,82 @@ app.use(express.urlencoded({ limit: process.env.MAX_REQUEST_SIZE || '10mb', exte
 app.use(express.static(__dirname, { index: false }));
 
 app.get('/', (req, res) => {
+  // If on Vercel without DATABASE_URL, show setup instructions
+  if (process.env.VERCEL && !process.env.DATABASE_URL) {
+    return res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Orbit Resolve — Setup Required</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: #333; }
+          h1 { color: #5b21b6; }
+          .box { background: #f3f4f6; border-left: 4px solid #5b21b6; padding: 20px; margin: 20px 0; border-radius: 4px; }
+          code { background: #e5e7eb; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+          .steps { margin: 20px 0; }
+          .step { margin: 15px 0; }
+          .step strong { color: #5b21b6; }
+          button { background: #5b21b6; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+          button:hover { background: #4c1d95; }
+        </style>
+      </head>
+      <body>
+        <h1>🚀 Orbit Resolve — Setup Required</h1>
+        
+        <div class="box">
+          <strong>⚠️ Database Not Configured</strong>
+          <p>The <code>DATABASE_URL</code> environment variable is not set on Vercel.</p>
+        </div>
+
+        <h2>Quick Setup (5 minutes)</h2>
+        
+        <div class="steps">
+          <div class="step">
+            <strong>1. Get a PostgreSQL Database</strong>
+            <p>Choose one:</p>
+            <ul>
+              <li><strong>Vercel Postgres</strong> (easiest) — Built into Vercel Dashboard</li>
+              <li><strong>Supabase</strong> (free) — supabase.com</li>
+              <li><strong>Railway</strong> (fast) — railway.app</li>
+              <li><strong>Amazon RDS</strong> — aws.amazon.com</li>
+            </ul>
+          </div>
+
+          <div class="step">
+            <strong>2. Set Environment Variable</strong>
+            <p>Go to Vercel Dashboard → Your Project → Settings → Environment Variables</p>
+            <p>Add: <code>DATABASE_URL</code> = <code>postgresql://user:password@host:port/dbname</code></p>
+          </div>
+
+          <div class="step">
+            <strong>3. Redeploy</strong>
+            <p>Go to Deployments → Latest Failed → Redeploy</p>
+          </div>
+
+          <div class="step">
+            <strong>4. Run Migrations</strong>
+            <p>After redeployment succeeds, manually run migrations using the Vercel CLI:</p>
+            <p><code>vercel env pull && npm run migrate</code></p>
+          </div>
+        </div>
+
+        <div class="box">
+          <strong>📝 Demo Credentials (once setup)</strong>
+          <ul>
+            <li>Email: <code>admin@acme.com</code></li>
+            <li>Password: <code>password123</code></li>
+          </ul>
+        </div>
+
+        <button onclick="location.reload()">🔄 Check Again</button>
+      </body>
+      </html>
+    `);
+  }
+
+  // Otherwise serve login page
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
@@ -99,6 +175,24 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 app.use(limiter);
+
+// ──── Database Health Check Middleware ────
+// For serverless: provide helpful error if DATABASE_URL is missing
+app.use((req, res, next) => {
+  if (!process.env.DATABASE_URL && process.env.VERCEL) {
+    // Only fail on API routes, not static files
+    if (req.path.startsWith('/api/')) {
+      return res.status(503).json({
+        error: 'Database not configured',
+        message: 'DATABASE_URL environment variable is not set on Vercel',
+        solution: 'Add DATABASE_URL to Vercel project settings → Environment Variables',
+        code: 'DATABASE_NOT_CONFIGURED'
+      });
+    }
+    // Allow static files to serve even without DB
+  }
+  next();
+});
 
 // ──── Routes ────
 app.use('/health', healthRoutes);
