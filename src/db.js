@@ -13,7 +13,8 @@ const pool = new pg.Pool({
   min: parseInt(process.env.DB_POOL_MIN || '2'),
   max: parseInt(process.env.DB_POOL_MAX || '20'),
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 10000, // Increased for remote connections
+  ssl: (process.env.DATABASE_URL || process.env.POSTGRES_URL)?.includes('neon.tech') ? { rejectUnauthorized: false } : false
 });
 
 pool.on('error', (err) => {
