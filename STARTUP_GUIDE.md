@@ -7,10 +7,10 @@ A complete, enterprise-grade SaaS backend for operational approval automation:
 
 ### **Backend API (Node.js/Express)**
 - ✅ 40+ RESTful endpoints
-- ✅ JWT authentication with RBAC
+- ✅ Enterprise-grade authentication (SSO/SAML) with RBAC
 - ✅ Multi-tenant architecture
 - ✅ PostgreSQL database with migrations
-- ✅ Risk scoring engine
+- ✅ Explainable operational confidence scoring
 - ✅ Stripe billing integration
 - ✅ Email notifications
 - ✅ Third-party integrations (GitHub, AWS, Okta)
@@ -103,7 +103,7 @@ http://localhost:3000/login.html
                │
 ┌──────────────▼──────────────────────┐
 │    Express.js Backend (server.js)   │
-│  • Authentication (JWT)             │
+│  • Authentication (Enterprise)      │
 │  • Rate Limiting                    │
 │  • CORS & Security Headers          │
 │  • Request Validation               │
@@ -178,7 +178,7 @@ See **API_REFERENCE.md** for complete documentation.
 
 ## 🔐 Security Features
 
-✓ **Authentication**: JWT tokens with 7-day expiry
+✓ **Authentication**: Enterprise-grade SSO/SAML ready
 ✓ **Password**: bcryptjs hashing (12 rounds)
 ✓ **Database**: Parameterized queries prevent SQL injection
 ✓ **CORS**: Configurable allowed origins
@@ -280,7 +280,7 @@ Use **POSTMAN_COLLECTION.json** to test API manually.
 
 1. **Update Environment Variables** (`.env`)
    - Set `DATABASE_URL` to your PostgreSQL
-   - Generate `JWT_SECRET` (32+ chars)
+   - Configure `JWT_SECRET` or SAML certificates
    - Add Stripe keys for billing
 
 2. **Customize Configuration**
@@ -317,6 +317,6 @@ MIT License — See LICENSE file
 ---
 
 **Orbit Resolve v3.0.0**
-Enterprise-grade operational decision engine with autonomous approval automation.
+Stripe Radar for internal operations. Orbit Resolve is the operational autopilot for low-risk enterprise requests.
 
 Ready for production. Let's build something amazing! 🚀

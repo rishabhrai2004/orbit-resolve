@@ -2,7 +2,7 @@
  * COMPLETE ORBIT RESOLVE SAAS BACKEND
  * 
  * This is a production-ready, enterprise-grade backend for Orbit Resolve,
- * an autonomous operational decision engine for enterprise approvals.
+ * an operational autopilot for low-risk enterprise requests.
  * 
  * ═══════════════════════════════════════════════════════════════════════════
  * 📦 QUICK START
@@ -56,7 +56,7 @@
  * 🔐 SECURITY
  * ═══════════════════════════════════════════════════════════════════════════
  * 
- * ✓ JWT authentication (7-day expiry)
+ * ✓ Enterprise-grade authentication (SSO/SAML ready)
  * ✓ Password hashing (bcryptjs, 12 rounds)
  * ✓ Rate limiting (100 req/15 min)
  * ✓ CORS validation
@@ -82,7 +82,7 @@
  *   - Webhook handling
  * 
  * Automation:
- *   - Risk scoring engine
+ *   - Explainable confidence scoring
  *   - Policy-based auto-approval
  *   - Exception detection
  *   - Provisioning orchestration
@@ -201,7 +201,7 @@
  * 
  * ═══════════════════════════════════════════════════════════════════════════
  * 
- * Orbit Resolve v3.0.0 — Enterprise Operations Automation
+ * Orbit Resolve v3.0.0 — Enterprise Resolution Engine
  * Built with Node.js, Express, and PostgreSQL
  * 
  */

@@ -1,6 +1,6 @@
 # Orbit Resolve — Production SaaS Backend
 
-Enterprise-grade operational decision engine with autonomous approval automation.
+Stripe Radar for internal company operations. Orbit Resolve is the operational autopilot for low-risk enterprise requests, eliminating repetitive manager approvals while escalating edge cases intelligently.
 
 ## 🚀 Quick Start
 
@@ -86,7 +86,7 @@ scripts/
 
 ## 🔐 Security
 
-- JWT authentication with 7-day expiry
+- Enterprise-grade authentication with SSO/SAML support
 - bcryptjs password hashing (12 rounds)
 - Request rate limiting (100 req/15min)
 - CORS validation
@@ -117,14 +117,22 @@ scripts/
 - Webhook handling for subscription events
 - Usage tracking per organization
 
-## 📈 Request Processing
+## 📈 The Operational Autopilot Loop
 
 1. **Submission** - User creates request
-2. **Risk Scoring** - ML-based confidence calculation
-3. **Policy Matching** - Compare against defined policies
-4. **Auto-Approval** - If confidence > threshold
-5. **Exception Handling** - Flag policy violations for review
-6. **Audit Logging** - Track all decisions
+2. **Confidence Engine** - Explainable, policy-backed operational confidence scoring
+3. **Policy Matching** - Compare deterministically against defined policies
+4. **Auto-Approval** - Instantly resolve low-risk, repetitive requests
+5. **Exception Handling** - Intelligently escalate edge cases for manager review
+6. **Audit Logging** - Immutable, auditable track of all decisions
+
+## 🧠 Decision Intelligence Layer (The Moat)
+
+Orbit Resolve continuously learns and compounds its value over time:
+- Monitors recurring approval patterns and bottleneck frequency
+- Analyzes manager override behavior on exceptions
+- Recommends automation expansion opportunities and redundant approval elimination
+- Suggests policy optimizations to safely increase the auto-approval rate
 
 ## 🧪 Testing
 
@@ -155,4 +163,4 @@ For issues or questions, contact: support@orbitresolve.com
 
 ---
 
-**Orbit Resolve v3.0.0** — Enterprise Operations Automation
+**Orbit Resolve v3.0.0** — Enterprise Resolution Engine
