@@ -9,7 +9,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://localhost/orbit_resolve',
+  connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL || 'postgresql://localhost/orbit_resolve',
   min: parseInt(process.env.DB_POOL_MIN || '2'),
   max: parseInt(process.env.DB_POOL_MAX || '20'),
   idleTimeoutMillis: 30000,
