@@ -27,10 +27,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
-  transport: {
-    target: 'pino-pretty',
-    options: { colorize: true }
-  }
+  // Disable pino-pretty in production/serverless to avoid crashes and overhead
+  ...(process.env.NODE_ENV !== 'production' && !process.env.VERCEL && {
+    transport: {
+      target: 'pino-pretty',
+      options: { colorize: true }
+    }
+  })
 });
 
 // ──── Security ────
